@@ -45,7 +45,8 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 // Only start the server if this file is run directly (not imported)
-if (require.main === module) {
+// This is important for Vercel deployment
+if (require.main === module && process.env["NODE_ENV"] !== "production") {
   app.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
     console.log(`📱 Health check: http://localhost:${PORT}/health`);
